@@ -9,13 +9,13 @@ import scala.math.max
 
 
 case class Max(name: String = Key.Max, mc: MColor) extends Operation {
-  def myexec(e: ExecuteWrapper): MColor = {
+  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
     val newR = max(c.getRed(), mc.getRed())
     val newG = max(c.getGreen(), mc.getGreen())
     val newB = max(c.getBlue(), mc.getBlue())
 
-    new MColor(newR, newG, newB, mc.getAlpha())
+    ExecuteWrapper(e.rect, e.pos, e.img, new MColor(newR, newG, newB, c.getAlpha()))
   }
 }
 

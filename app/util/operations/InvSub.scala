@@ -7,13 +7,13 @@ import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 
 case class InvSub(name: String = Key.Invsub, mc: MColor) extends Operation {
-  def myexec(e: ExecuteWrapper): MColor = {
+  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
     val newR = mc.getRed() - c.getRed()
     val newG = mc.getGreen() - c.getGreen()
     val newB = mc.getBlue() - c.getBlue()
 
-    new MColor(newR, newG, newB, mc.getAlpha())
+    ExecuteWrapper(e.rect, e.pos, e.img, new MColor(newR, newG, newB, c.getAlpha()))
   }
 }
 

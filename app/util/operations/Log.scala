@@ -8,13 +8,13 @@ import util.operation.helper._
 import scala.math.log
 
 case class Log(name: String = Key.Log) extends Operation {
-  def myexec(e: ExecuteWrapper): MColor = {
+  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
     val newR = log(c.getRed())
     val newG = log(c.getGreen())
     val newB = log(c.getBlue())
 
-    new MColor(newR.toFloat, newG.toFloat, newB.toFloat, c.getAlpha())
+    ExecuteWrapper(e.rect, e.pos, e.img, new MColor(newR.toFloat, newG.toFloat, newB.toFloat, c.getAlpha()))
   }
 }
 

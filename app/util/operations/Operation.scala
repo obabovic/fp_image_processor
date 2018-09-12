@@ -10,30 +10,8 @@ import java.awt.image.BufferedImage
 
 trait Operation {
   val name: String
-  var child: Operation = null
 
-  protected def myexec(e: ExecuteWrapper): MColor
-
-  def execute(sel: Selection, image: BufferedImage): BufferedImage = {
-    var img = image
-
-    if(child != null) {
-      img = child.execute(sel, img)
-    }
-
-    for (rect <- sel.rectangles) {
-      for (i <- rect.start.y until rect.end.y) {
-        for (j <- rect.start.x until rect.end.x) {
-          val color = new MColor(img.getRGB(j, i))
-          val position = new Position(j, i)
-
-          img.setRGB(j, i, myexec(ExecuteWrapper(rect, position, img, color)).getRGBA())
-        }
-      }
-    }
-
-    img
-  }
+  def myexec(e: ExecuteWrapper): ExecuteWrapper
 }
 
 

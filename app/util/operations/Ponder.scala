@@ -7,8 +7,8 @@ import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 import java.awt.image.BufferedImage
 
-class Ponder(name: String, w: Int, h: Int, pMat: Array[Array[MColor]]) extends Operation {
-  def myexec(e: ExecuteWrapper): MColor = {
+case class Ponder(name: String, w: Int, h: Int, pMat: Array[Array[MColor]]) extends Operation {
+  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     var pos = e.pos
     var img = e.img
     var r = e.rect
@@ -79,7 +79,7 @@ class Ponder(name: String, w: Int, h: Int, pMat: Array[Array[MColor]]) extends O
     ponderG = gMix / gPond
     ponderB = bMix / bPond
 
-    return new MColor(ponderR, ponderG, ponderB, e.c.getAlpha())
+    ExecuteWrapper(e.rect, e.pos, e.img, new MColor(ponderR, ponderG, ponderB, e.c.getAlpha()))
   }
 }
 

@@ -7,9 +7,9 @@ import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 import java.awt.image.BufferedImage
 
-class Mediana(name: String, w: Int, h: Int) extends Operation {
+case class Mediana(name: String, w: Int, h: Int) extends Operation {
 
-  def myexec(e: ExecuteWrapper): MColor = {
+  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     var pos = e.pos
     var img = e.img
     var r = e.rect
@@ -70,7 +70,7 @@ class Mediana(name: String, w: Int, h: Int) extends Operation {
     medianG = if(rSorted.size % 2 == 1) gSorted(gSorted.size/2).getGreen() else (gSorted(gSorted.size/2-1).getGreen() + gSorted(gSorted.size/2-1).getGreen())/2
     medianB = if(rSorted.size % 2 == 1) bSorted(bSorted.size/2).getBlue() else (bSorted(bSorted.size/2-1).getBlue() + bSorted(bSorted.size/2-1).getBlue())/2
 
-    return new MColor(medianR, medianG, medianB, e.c.getAlpha())
+    ExecuteWrapper(e.rect, e.pos, e.img, new MColor(medianR, medianG, medianB, e.c.getAlpha()))
   }
 }
 

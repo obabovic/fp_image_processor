@@ -8,13 +8,13 @@ import util.operation.helper._
 import scala.math.pow
 
 case class Pow(name: String = Key.Pow, r: Float, g: Float, b: Float) extends Operation {
-  def myexec(e: ExecuteWrapper): MColor = {
+  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
     val newR = pow(c.getRed(), r)
     val newG = pow(c.getGreen(), g)
     val newB = pow(c.getBlue(), b)
 
-    new MColor(newR.toFloat, newG.toFloat, newB.toFloat, c.getAlpha())
+    ExecuteWrapper(e.rect, e.pos, e.img, new MColor(newR.toFloat, newG.toFloat, newB.toFloat, c.getAlpha()))
   }
 }
 

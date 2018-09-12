@@ -8,13 +8,14 @@ import util.operation.helper._
 import scala.math.abs
 
 case class Abs(name: String = Key.Abs, mc: MColor) extends Operation {
-  def myexec(e: ExecuteWrapper): MColor = {
+  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
     val newR = abs(c.getRed() - mc.getRed())
     val newG = abs(c.getGreen() - mc.getGreen())
     val newB = abs(c.getBlue() - mc.getBlue())
 
-    new MColor(newR, newG, newB, mc.getAlpha())
+    
+    ExecuteWrapper(e.rect, e.pos, e.img, new MColor(newR, newG, newB, c.getAlpha()))
   }
 }
 

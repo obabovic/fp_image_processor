@@ -16,4 +16,5 @@ object Key {
   val Greyscale = "greyscale"
   val Mediana = "mediana"
   val Ponder = "ponder"
+  val Composite = "composite"
 }

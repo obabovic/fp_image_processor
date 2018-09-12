@@ -1,0 +1,42 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "layers": [
+    {
+      "id": 1,
+      "imagePath": "qweqq.png",
+      "alpha": 0.5,
+      "active": true,
+      "selections": [
+        {
+          "name": "",
+          "active": true,
+          "ops": [
+            {
+              "name": "add",
+              "mc": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.8,
+                "a": 1.0
+              }
+            }
+          ],
+          "rectangles": [
+            {
+              "start": {
+                "x": 50,
+                "y": 50
+              },
+
+              "end": {
+                "x": 100,
+                "y": 100
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

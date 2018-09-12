@@ -6,7 +6,7 @@ import play.api.libs.json.{Json, Reads, Writes}
 import play.api.libs.json.Reads.verifying
 import util.operation.helper._
 
-case class Add(name: String, mc: MColor) extends Operation {
+case class Add(name: String = Key.Add, mc: MColor) extends Operation {
   
   def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c

@@ -5,6 +5,7 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{Json, Reads, Writes}
 import play.api.libs.json.Reads.verifying
+import scala.math.{min, max}
 
 case class MColor (r: Float, g: Float, b: Float, a: Float) {
   def this(rgba: Int) = {
@@ -12,20 +13,13 @@ case class MColor (r: Float, g: Float, b: Float, a: Float) {
   }
 
   def getRGBA(): Int = {
-    println((a*255).toInt)
-    println((r*255).toInt)
-    println((g*255).toInt)
-    println((b*255).toInt)
-    println("\n")
-    val col = ((a*255).toInt << 24) | ((r*255).toInt << 16) | ((g*255).toInt << 8) | ((b*255).toInt)
-    println(col)
-    col
+    ((a*255).toInt << 24) | ((r*255).toInt << 16) | ((g*255).toInt << 8) | ((b*255).toInt)
   }
 
-  def getAlpha(): Float = a
-  def getRed(): Float = r
-  def getGreen(): Float = g
-  def getBlue(): Float = b
+  def getAlpha(): Float = min(max(a, 0.0).toFloat, 1.0f)
+  def getRed(): Float = min(max(r, 0.0).toFloat, 1.0f)
+  def getGreen(): Float = min(max(g, 0.0).toFloat, 1.0f)
+  def getBlue(): Float = min(max(b, 0.0).toFloat, 1.0f)
 }
 
 object MColor {

@@ -30,25 +30,27 @@ object Operation {
     Max.reads.map(identity[Operation]) orElse
     Greyscale.reads.map(identity[Operation]) orElse
     Mediana.reads.map(identity[Operation]) orElse
-    Ponder.reads.map(identity[Operation])
+    Ponder.reads.map(identity[Operation]) orElse
+    Composite.reads.map(identity[Operation])
 
   implicit val operationWrites: Writes[Operation] = new Writes[Operation] {
     def writes(op: Operation): JsValue = {
       op match {
-        case oper: Add => Json.toJson(oper)(Add.writes)
-        case oper: Sub => Json.toJson(oper)(Sub.writes)
-        case oper: InvSub => Json.toJson(oper)(InvSub.writes)
-        case oper: Inv => Json.toJson(oper)(Inv.writes)
-        case oper: Mul => Json.toJson(oper)(Mul.writes)
-        case oper: Div => Json.toJson(oper)(Div.writes)
-        case oper: InvDiv => Json.toJson(oper)(InvDiv.writes)
-        case oper: Pow => Json.toJson(oper)(Pow.writes)
-        case oper: Log => Json.toJson(oper)(Log.writes)
-        case oper: Min => Json.toJson(oper)(Min.writes)
-        case oper: Max => Json.toJson(oper)(Max.writes)
-        case oper: Greyscale => Json.toJson(oper)(Greyscale.writes)
-        case oper: Mediana => Json.toJson(oper)(Mediana.writes)
-        case oper: Ponder => Json.toJson(oper)(Ponder.writes)
+        case operation: Add => Json.toJson(operation)(Add.writes)
+        case operation: Sub => Json.toJson(operation)(Sub.writes)
+        case operation: InvSub => Json.toJson(operation)(InvSub.writes)
+        case operation: Inv => Json.toJson(operation)(Inv.writes)
+        case operation: Mul => Json.toJson(operation)(Mul.writes)
+        case operation: Div => Json.toJson(operation)(Div.writes)
+        case operation: InvDiv => Json.toJson(operation)(InvDiv.writes)
+        case operation: Pow => Json.toJson(operation)(Pow.writes)
+        case operation: Log => Json.toJson(operation)(Log.writes)
+        case operation: Min => Json.toJson(operation)(Min.writes)
+        case operation: Max => Json.toJson(operation)(Max.writes)
+        case operation: Greyscale => Json.toJson(operation)(Greyscale.writes)
+        case operation: Mediana => Json.toJson(operation)(Mediana.writes)
+        case operation: Ponder => Json.toJson(operation)(Ponder.writes)
+        case operation: Composite => Json.toJson(operation)(Composite.writes)
         case _ => Json.obj("error" -> "The given operation name is invalid.")
       }
     }

@@ -1,9 +1,10 @@
 package util
 
 object Key {
-  val Add = "add"
   val Abs = "abs"
+  val Add = "add"
   val Sub = "sub"
+  val Inv = "inv"
   val Invsub = "invsub"
   val Mul = "mul"
   val Div = "div"
@@ -12,7 +13,6 @@ object Key {
   val Log = "log"
   val Min = "min"
   val Max = "max"
-  val Inv = "inv"
   val Greyscale = "greyscale"
   val Mediana = "mediana"
   val Ponder = "ponder"

@@ -7,7 +7,7 @@ import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 import java.awt.image.BufferedImage
 
-class Mediana(name: String, w: Int, h: Int) extends Filter(name, w, h) {
+class Mediana(name: String, w: Int, h: Int) extends Operation {
 
   def myexec(e: ExecuteWrapper): MColor = {
     var pos = e.pos
@@ -72,4 +72,10 @@ class Mediana(name: String, w: Int, h: Int) extends Filter(name, w, h) {
 
     return new MColor(medianR, medianG, medianB, e.c.getAlpha())
   }
+}
+
+
+object Mediana {
+  val reads: Reads[Mediana] = verifying[Mediana](_.`name` == Key.Mediana)(Json.reads[Mediana])
+  val writes: Writes[Mediana] = Json.writes[Mediana]
 }

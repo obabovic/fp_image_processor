@@ -14,34 +14,25 @@ trait Operation {
 
   protected def myexec(e: ExecuteWrapper): MColor
 
-  def execute(sel: Selection, img: BufferedImage): BufferedImage = {
-    var res = img
+  def execute(sel: Selection, image: BufferedImage): BufferedImage = {
+    var img = image
 
     if(child != null) {
-      res = child.execute(sel, res)
-    } 
+      img = child.execute(sel, img)
+    }
 
     for (rect <- sel.rectangles) {
-      val xStart = rect.start.x
-      val xEnd = rect.end.x
-      val yStart = rect.start.y
-      val yEnd = rect.end.y
-      
-      for (i <- yStart until yEnd) {
-        for (j <- xStart until xEnd) {
-          val color = new MColor(res.getRGB(j, i))
+      for (i <- rect.start.y until rect.end.y) {
+        for (j <- rect.start.x until rect.end.x) {
+          val color = new MColor(img.getRGB(j, i))
+          val position = new Position(j, i)
 
-          this match {
-            case Filter(name, w, h) =>
-              res.setRGB(j, i, myexec(ExecuteWrapper(rect, new Position(j, i), res, color)).getRGBA())
-            case default => 
-              res.setRGB(j, i, myexec(ExecuteWrapper(null, null, null, color)).getRGBA());
-          }
+          img.setRGB(j, i, myexec(ExecuteWrapper(rect, position, img, color)).getRGBA())
         }
       }
     }
 
-    res
+    img
   }
 }
 
@@ -59,9 +50,9 @@ object Operation {
     Log.reads.map(identity[Operation]) orElse
     Min.reads.map(identity[Operation]) orElse
     Max.reads.map(identity[Operation]) orElse
-    Greyscale.reads.map(identity[Operation]) // orElse
-    // Mediana.reads.map(identity[Operation]) orElse
-    // Ponder.reads.map(identity[Operation])
+    Greyscale.reads.map(identity[Operation]) orElse
+    Mediana.reads.map(identity[Operation]) orElse
+    Ponder.reads.map(identity[Operation])
 
   implicit val operationWrites: Writes[Operation] = new Writes[Operation] {
     def writes(op: Operation): JsValue = {
@@ -69,8 +60,8 @@ object Operation {
         case oper: Add => Json.toJson(oper)(Add.writes)
         case oper: Sub => Json.toJson(oper)(Sub.writes)
         case oper: InvSub => Json.toJson(oper)(InvSub.writes)
-        case oper: Mul => Json.toJson(oper)(Mul.writes)
         case oper: Inv => Json.toJson(oper)(Inv.writes)
+        case oper: Mul => Json.toJson(oper)(Mul.writes)
         case oper: Div => Json.toJson(oper)(Div.writes)
         case oper: InvDiv => Json.toJson(oper)(InvDiv.writes)
         case oper: Pow => Json.toJson(oper)(Pow.writes)
@@ -78,7 +69,9 @@ object Operation {
         case oper: Min => Json.toJson(oper)(Min.writes)
         case oper: Max => Json.toJson(oper)(Max.writes)
         case oper: Greyscale => Json.toJson(oper)(Greyscale.writes)
-        case _ => Json.obj("error" -> "Unknown operation format")
+        case oper: Mediana => Json.toJson(oper)(Mediana.writes)
+        case oper: Ponder => Json.toJson(oper)(Ponder.writes)
+        case _ => Json.obj("error" -> "The given operation name is invalid.")
       }
     }
   }

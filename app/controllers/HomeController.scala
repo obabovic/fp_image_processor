@@ -19,7 +19,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
         case (content) => {
           println(content)
           var url = content.execute()
-          Ok(Json.toJson("{\"URL\":"+ url +"}"))
+          Ok(Json.toJson(content))
         }
       }.recoverTotal {
         e => BadRequest("Detected error:"+ JsError.toJson(e))

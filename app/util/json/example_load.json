@@ -13,27 +13,7 @@
           "active": true,
           "ops": [
             {
-              "name": "composite",
-              "operations": [
-                {
-                  "name": "add",
-                  "mc": {
-                    "r": 0.10,
-                    "g": 0.10,
-                    "b": 0.10,
-                    "a": 1.0
-                  }
-                },
-                {
-                  "name": "sub",
-                  "mc": {
-                    "r": 0.10,
-                    "g": 0.10,
-                    "b": 0.10,
-                    "a": 1.0
-                  }
-                }
-              ]
+              "name": "greyscale"
             }
           ],
           "rectangles": [
@@ -43,8 +23,8 @@
                 "y": 0
               },
               "end": {
-                "x": 500,
-                "y": 500
+                "x": 700,
+                "y": 700
               }
             }
           ]

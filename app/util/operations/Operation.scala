@@ -31,7 +31,7 @@ object Operation {
     Greyscale.reads.map(identity[Operation]) orElse
     Mediana.reads.map(identity[Operation]) orElse
     Ponder.reads.map(identity[Operation]) orElse
-    Composite.reads.map(identity[Operation])
+    Composite.reads.map(identity[Operation]) 
 
   implicit val operationWrites: Writes[Operation] = new Writes[Operation] {
     def writes(op: Operation): JsValue = {

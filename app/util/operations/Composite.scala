@@ -7,18 +7,24 @@ import play.api.libs.json.Reads.verifying
 
 import util.operation.helper._
 
-case class Composite(name: String = Key.Composite, operations: Array[Operation]) extends Operation {
+case class Composite(name: String = Key.Composite, operations: Array[Operation], reverse: Boolean = false) extends Operation {
   
   def myexec(e: ExecuteWrapper): ExecuteWrapper = {
-    var composition = operations(0).myexec _
+    var chain = operations(0).myexec _
     
     if(operations.size > 1) {
-      operations.drop(1).foreach(op => {
-        composition = composition compose op.myexec _
-      })
+      if(reverse) {
+        operations.drop(1).foreach(op => {
+          chain = chain compose op.myexec _
+        })
+      } else {  
+        operations.drop(1).foreach(op => {
+          chain = chain andThen op.myexec _
+        })
+      }
     }
 
-    composition(e)
+    chain(e)
   }
 }
 
@@ -27,7 +33,9 @@ object Composite {
     override def reads(json: JsValue): JsResult[Composite] = {
       val name = (json \ "name").as[String]
       val operations = (json \ "operations").as[Array[Operation]]
-      JsSuccess(Composite(name, operations))
+      val reverse = (json \ "reverse").as[Boolean]
+      
+      JsSuccess(Composite(name, operations, reverse))
     }
   }
 
@@ -35,7 +43,8 @@ object Composite {
     override def writes(o: Composite): JsValue = {
       Json.obj(
         "name" -> o.name,
-        "operations" -> o.operations)
+        "operations" -> o.operations,
+        "reverse" -> o.reverse)
     }
   }
 }

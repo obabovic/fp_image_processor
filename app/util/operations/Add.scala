@@ -13,7 +13,7 @@ case class Add(name: String = Key.Add, mc: MColor) extends Operation {
     val newR = c.getRed() + mc.getRed()
     val newG = c.getGreen() + mc.getGreen()
     val newB = c.getBlue() + mc.getBlue()
-
+    
     ExecuteWrapper(e.rect, e.pos, e.img, new MColor(newR, newG, newB, c.getAlpha()))
   }
 }

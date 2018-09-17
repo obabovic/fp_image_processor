@@ -17,4 +17,5 @@ object Key {
   val Mediana = "mediana"
   val Ponder = "ponder"
   val Composite = "composite"
+  val Inorder = "inorder"
 }

@@ -1,0 +1,1 @@
+{"layers":[{"id":1,"imagePath":"1.png","selections":[{"name":"s11","ops":[{"name":"add","mc":{"r":1,"g":1,"b":1,"a":1}}],"rectangles":[{"start":{"x":1,"y":1},"end":{"x":555,"y":555}}],"active":true}],"alpha":1,"active":true}],"width":1000,"height":1000}

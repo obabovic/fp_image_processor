@@ -1,11 +1,11 @@
 package controllers
 
 import javax.inject._
+import util.io.IOHelper
 import play.api._
 import play.api.mvc._
 import play.api.libs.json._
 import model._
-
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -19,7 +19,8 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
         case (content) => {
           println(content)
           var url = content.execute()
-          Ok(Json.toJson(content))
+          IOHelper.saveConfiguration(content)
+          Ok(Json.toJson(url))
         }
       }.recoverTotal {
         e => BadRequest("Detected error:"+ JsError.toJson(e))
@@ -27,5 +28,9 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     }.getOrElse {
       BadRequest("Expecting Json data")
     }
+  }
+
+  def loadConfiguration() = Action { implicit request: Request[AnyContent] =>
+    Ok(IOHelper.loadConfiguration())
   }
 }

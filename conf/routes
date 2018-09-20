@@ -4,6 +4,7 @@
 # ~~~~
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file               controllers.Assets.versioned(path="/public/images/output", file: Asset)
 
-POST     /                           controllers.HomeController.executeRequest()
+POST     /execute                   controllers.HomeController.executeRequest()
+GET      /load                      controllers.HomeController.loadConfiguration()

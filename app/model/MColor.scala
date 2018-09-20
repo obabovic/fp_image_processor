@@ -9,11 +9,11 @@ import scala.math.{min, max}
 
 case class MColor (r: Float, g: Float, b: Float, a: Float) {
   def this(rgba: Int) = {
-    this(((rgba & 0x00ff0000) >> 16).toFloat/255, ((rgba & 0x0000ff00) >> 8).toFloat/255, (rgba & 0x000000ff).toFloat/255, ((rgba >> 24) & 0x000000ff).toFloat/255)
+    this(((rgba & 0x00ff0000) >> 16).toFloat/255, ((rgba & 0x0000ff00) >> 8).toFloat/255, (rgba & 0x000000ff).toFloat/255, ((rgba & 0xff000000)>> 24).toFloat/255)
   }
 
   def getRGBA(): Int = {
-    ((a*255).toInt << 24) | ((r*255).toInt << 16) | ((g*255).toInt << 8) | ((b*255).toInt)
+    ((getAlpha()*255).toInt << 24) | ((getRed()*255).toInt << 16) | ((getGreen()*255).toInt << 8) | ((getBlue()*255).toInt)
   }
 
   def getAlpha(): Float = min(max(a, 0.0).toFloat, 1.0f)

@@ -10,7 +10,7 @@ import util.io.IOHelper
 import java.time.format.DateTimeFormatter
 import java.time.LocalDateTime
 
-case class DB(layers: Array[Layer], width: Int, height: Int) {
+case class DB(layers: Array[Layer], ops: Array[Operation], width: Int, height: Int) {
   def execute(): String = {
     val rootImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
     val graphics: Graphics2D = rootImage.getGraphics().asInstanceOf[Graphics2D]

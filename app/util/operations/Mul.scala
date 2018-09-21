@@ -9,9 +9,9 @@ import util.operation.helper._
 case class Mul(name: String = Key.Mul, mc: MColor) extends Operation {
   def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
-    val newR = c.getRed() * mc.getRed()
-    val newG = c.getGreen() * mc.getGreen()
-    val newB = c.getBlue() * mc.getBlue()
+    val newR = c.getRed() * mc.r
+    val newG = c.getGreen() * mc.g
+    val newB = c.getBlue() * mc.b
 
     ExecuteWrapper(e.rect, e.pos, e.img, new MColor(newR, newG, newB, c.getAlpha()))
   }

@@ -12,9 +12,10 @@ import java.time.LocalDateTime
 
 case class DB(layers: Array[Layer], ops: Array[Operation], width: Int, height: Int) {
   def execute(): String = {
+    println(width+ " "+ height)
     val rootImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
     val graphics: Graphics2D = rootImage.getGraphics().asInstanceOf[Graphics2D]
-    var dstName: String = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm").format(LocalDateTime.now)+".png"
+    var dstName: String = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss").format(LocalDateTime.now)+".png"
 
     layers.foreach { layer =>
       var img = layer.execute()

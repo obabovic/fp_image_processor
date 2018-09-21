@@ -1,0 +1,46 @@
+{
+  "layers" : [
+    {
+      "alpha" : 1,
+      "active" : true,
+      "id" : 1,
+      "imagePath" : "1.png",
+      "selections" : [
+        {
+          "name" : "s11",
+          "rectangles" : [
+            {
+              "start" : {
+                "y" : 1,
+                "x" : 1
+              },
+              "end" : {
+                "y" : 555,
+                "x" : 555
+              }
+            }
+          ],
+          "active" : true,
+          "ops" : [
+            {
+              "name" : "sub",
+              "mc" : {
+                "b" : 1,
+                "a" : 1,
+                "g" : 1,
+                "r" : 1
+              },
+              "pMat" : [
+                [
+
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "height" : 1000,
+  "width" : 1000
+}

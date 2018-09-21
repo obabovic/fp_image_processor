@@ -32,7 +32,7 @@ object Composite {
   val reads: Reads[Composite] = new Reads[Composite] {
     override def reads(json: JsValue): JsResult[Composite] = {
       val name = (json \ "name").as[String]
-      val operations = (json \ "operations").as[Array[Operation]]
+      val operations = (json \ "ops").as[Array[Operation]]
       val reverse = (json \ "reverse").as[Boolean]
       
       JsSuccess(Composite(name, operations, reverse))
@@ -43,7 +43,7 @@ object Composite {
     override def writes(o: Composite): JsValue = {
       Json.obj(
         "name" -> o.name,
-        "operations" -> o.operations,
+        "ops" -> o.operations,
         "reverse" -> o.reverse)
     }
   }

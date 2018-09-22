@@ -10,21 +10,13 @@ import util.operation.helper._
 case class Composite(name: String = Key.Composite, operations: Array[Operation], reverse: Boolean = false) extends Operation {
   
   def myexec(e: ExecuteWrapper): ExecuteWrapper = {
-    var chain = operations(0).myexec _
-    
-    if(operations.size > 1) {
-      if(reverse) {
-        operations.drop(1).foreach(op => {
-          chain = chain compose op.myexec _
-        })
-      } else {  
-        operations.drop(1).foreach(op => {
-          chain = chain andThen op.myexec _
-        })
-      }
+    def chaining(arr: Array[Operation], current: ExecuteWrapper => ExecuteWrapper): (ExecuteWrapper => ExecuteWrapper) = {
+      if (arr.isEmpty) current 
+      else chaining(arr.tail, if(reverse) current compose arr.head.myexec _ 
+                              else current andThen arr.head.myexec _ )
     }
 
-    chain(e)
+    chaining(operations, x => x)(e)
   }
 }
 

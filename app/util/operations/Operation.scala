@@ -53,4 +53,24 @@ object Operation {
             }
         }
     }
+
+    def createFunction(o: Operation): ExecuteWrapper => ExecuteWrapper = {
+      o match {
+        case a: Arithmetic => {
+          a.myexec(a.mc)
+        }
+
+        case n: NoArg => {
+          n.myexec _
+        }
+
+        case f: Filter => {
+          f.myexec(f.w, f.h, f.pMat)
+        }
+
+        case c: Composite => {
+          c.myexec(c.ops, c.reverse)
+        }
+      }
+    }
 }

@@ -8,7 +8,7 @@ import util.operation.helper._
 
 case class Selection(name: String, ops: Array[Operation], rectangles: Array[Rectangle], active: Boolean) {
 
-  def apply(img: BufferedImage): BufferedImage = {
+  def execute(img: BufferedImage): BufferedImage = {
     def createFunction(o: Operation): ExecuteWrapper => ExecuteWrapper = {
       o match {
         case a: Arithmetic => {

@@ -6,7 +6,7 @@ import play.api.libs.json.Reads.verifying
 import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 
-case class Inv(name: String = Key.Inv) extends Operation {
+case class Inv(name: String = Key.Inv) extends NoArg {
   def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
     val newR = 1.0f - c.getRed()

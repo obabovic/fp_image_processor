@@ -7,9 +7,8 @@ import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 import java.awt.image.BufferedImage
 
-case class Mediana(name: String, w: Int, h: Int) extends Operation {
-
-  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
+case class Mediana(name: String, w: Int, h: Int, pMat: Array[Array[MColor]] = null) extends Filter {
+  def myexec(w: Int, h: Int, pMat: Array[Array[MColor]] = null)(e: ExecuteWrapper): ExecuteWrapper = {
     var pos = e.pos
     var img = e.img
     var r = e.rect

@@ -7,8 +7,8 @@ import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 import java.awt.image.BufferedImage
 
-case class Ponder(name: String, w: Int, h: Int, pMat: Array[Array[MColor]]) extends Operation {
-  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
+case class Ponder(name: String, w: Int, h: Int, pMat: Array[Array[MColor]]) extends Filter {
+  def myexec(w: Int, h: Int, pMat: Array[Array[MColor]])(e: ExecuteWrapper): ExecuteWrapper = {
     var pos = e.pos
     var img = e.img
     var r = e.rect

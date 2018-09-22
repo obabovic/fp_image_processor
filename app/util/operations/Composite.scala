@@ -9,15 +9,6 @@ import util.operation.helper._
 
 case class Composite(name: String = Key.Composite, operations: Array[Operation], reverse: Boolean = false) extends Operation {
   
-  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
-    def chaining(arr: Array[Operation], current: ExecuteWrapper => ExecuteWrapper): (ExecuteWrapper => ExecuteWrapper) = {
-      if (arr.isEmpty) current 
-      else chaining(arr.tail, if(reverse) current compose arr.head.myexec _ 
-                              else current andThen arr.head.myexec _ )
-    }
-
-    chaining(operations, x => x)(e)
-  }
 }
 
 object Composite {

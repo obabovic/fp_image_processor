@@ -7,7 +7,7 @@ import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 import scala.math.log
 
-case class Log(name: String = Key.Log) extends Operation {
+case class Log(name: String = Key.Log) extends NoArg {
   def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
     val newR = log(c.getRed())

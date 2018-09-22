@@ -6,7 +6,7 @@ import play.api.libs.json.Reads.verifying
 import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 
-case class Greyscale(name: String = Key.Greyscale) extends Operation {
+case class Greyscale(name: String = Key.Greyscale) extends NoArg {
   def myexec(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
     val newR = (c.getRed() + c.getGreen() + c.getBlue())/3

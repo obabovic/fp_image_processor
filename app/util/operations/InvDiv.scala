@@ -6,12 +6,12 @@ import play.api.libs.json.Reads.verifying
 import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 
-case class InvDiv(name: String = Key.Invdiv, mc: MColor) extends Operation {
-  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
+case class InvDiv(name: String = Key.Invdiv, mc: MColor) extends Arithmetic {
+  def myexec(const: MColor)(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
-    val newR = mc.getRed() / c.getRed()
-    val newG = mc.getGreen() / c.getGreen()
-    val newB = mc.getBlue() / c.getBlue()
+    val newR = const.getRed() / c.getRed()
+    val newG = const.getGreen() / c.getGreen()
+    val newB = const.getBlue() / c.getBlue()
 
     ExecuteWrapper(e.rect, e.pos, e.img, new MColor(newR, newG, newB, c.getAlpha()))
   }

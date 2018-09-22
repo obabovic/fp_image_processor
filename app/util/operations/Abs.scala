@@ -7,14 +7,13 @@ import play.api.libs.json.Reads.verifying
 import util.operation.helper._
 import scala.math.abs
 
-case class Abs(name: String = Key.Abs, mc: MColor) extends Operation {
-  def myexec(e: ExecuteWrapper): ExecuteWrapper = {
+case class Abs(name: String = Key.Abs, mc: MColor) extends Arithmetic {
+  def myexec(const: MColor)(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
-    val newR = abs(c.getRed() - mc.getRed())
-    val newG = abs(c.getGreen() - mc.getGreen())
-    val newB = abs(c.getBlue() - mc.getBlue())
+    val newR = abs(c.getRed() - const.getRed())
+    val newG = abs(c.getGreen() - const.getGreen())
+    val newB = abs(c.getBlue() - const.getBlue())
 
-    
     ExecuteWrapper(e.rect, e.pos, e.img, new MColor(newR, newG, newB, c.getAlpha()))
   }
 }

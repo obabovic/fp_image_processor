@@ -7,8 +7,8 @@ import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 import java.awt.image.BufferedImage
 
-class Ponder(name: String, w: Int, h: Int, pMat: Array[Array[MColor]]) extends Filter(name, w, h) {
-  def myexec(e: ExecuteWrapper): MColor = {
+case class Ponder(name: String, w: Int, h: Int, pMat: Array[Array[MColor]]) extends Filter {
+  def myexec(w: Int, h: Int, pMat: Array[Array[MColor]])(e: ExecuteWrapper): ExecuteWrapper = {
     var pos = e.pos
     var img = e.img
     var r = e.rect
@@ -79,6 +79,11 @@ class Ponder(name: String, w: Int, h: Int, pMat: Array[Array[MColor]]) extends F
     ponderG = gMix / gPond
     ponderB = bMix / bPond
 
-    return new MColor(ponderR, ponderG, ponderB, e.c.getAlpha())
+    ExecuteWrapper(e.rect, e.pos, e.img, new MColor(ponderR, ponderG, ponderB, e.c.getAlpha()))
   }
+}
+
+object Ponder {
+  val reads: Reads[Ponder] = verifying[Ponder](_.`name` == Key.Ponder)(Json.reads[Ponder])
+  val writes: Writes[Ponder] = Json.writes[Ponder]
 }

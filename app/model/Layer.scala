@@ -14,7 +14,7 @@ case class Layer(id: Int, imagePath: String, selections: Array[Selection], alpha
     var newImg = image
     if(active == true) {
       for(sel <- selections) {
-        newImg = sel.apply(newImg)
+        newImg = sel.execute(newImg)
       }
 
       newImg

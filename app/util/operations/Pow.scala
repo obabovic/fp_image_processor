@@ -7,14 +7,14 @@ import play.api.libs.json.{Json, Reads, Writes}
 import util.operation.helper._
 import scala.math.pow
 
-case class Pow(name: String = Key.Pow, r: Float, g: Float, b: Float) extends Operation {
-  def myexec(e: ExecuteWrapper): MColor = {
+case class Pow(name: String = Key.Pow, mc: MColor) extends Arithmetic {
+  def myexec(const: MColor)(e: ExecuteWrapper): ExecuteWrapper = {
     val c = e.c
-    val newR = pow(c.getRed(), r)
-    val newG = pow(c.getGreen(), g)
-    val newB = pow(c.getBlue(), b)
+    val newR = pow(c.getRed(), const.getRed())
+    val newG = pow(c.getGreen(), const.getGreen())
+    val newB = pow(c.getBlue(), const.getBlue())
 
-    new MColor(newR.toFloat, newG.toFloat, newB.toFloat, c.getAlpha())
+    ExecuteWrapper(e.rect, e.pos, e.img, new MColor(newR.toFloat, newG.toFloat, newB.toFloat, c.getAlpha()))
   }
 }
 
